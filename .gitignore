@@ -106,3 +106,7 @@ venv.bak/
 # IDEs
 .idea/
 .vscode/
+
+# Local baseband traces and virtualenv
+traces/
+.venv/
