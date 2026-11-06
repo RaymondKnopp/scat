@@ -465,6 +465,9 @@ class DiagNrLogParser:
             type_str = rrc_type_map[item.pdu_id]
             gsmtapv3_metadata = dict()
             gsmtapv3_metadata[util.gsmtapv3_metadata_tags.BSIC_PSC_PCI] = item.pci
+            # RRC ASN.1 version used by the UE: minor/sub-version are packed as nibbles (0x60 -> 6.0)
+            gsmtapv3_metadata[util.gsmtapv3_metadata_tags.PACKET_COMMENT] = 'UE RRC release {}.{}.{}'.format(
+                item.rrc_rel_maj, item.rrc_rel_min >> 4, item.rrc_rel_min & 0xf).encode('utf-8')
             if ncgi:
                 mcc_mnc = util.unpack_mcc_mnc(ncgi[36:60].bytes)
                 cell_id = ncgi[0:36].uint
